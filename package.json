@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "get-mp3-duration": "^1.0.0"
+    "get-mp3-duration": "^1.0.0",
+    "mongodb": "^3.6.0"
   },
   "devDependencies": {},
   "scripts": {
