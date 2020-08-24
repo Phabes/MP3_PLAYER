@@ -286,7 +286,7 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    mongoClient.connect("mongodb://" + finish.addressIP + "/" + finish.databaseName, function(err, db) {
+    mongoClient.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", function(err, db) {
         if(err) {
             console.log(err)
             callback("NOT_CONNECTED")
@@ -341,7 +341,7 @@ server.listen(3000, function() {
     //     addressIP: "127.0.0.1",
     //     databaseName: "lists"
     // }
-    // createConnection(finish, function(data) {console.log(data)})
+    createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie 3000")
 })
 
@@ -354,3 +354,4 @@ server.listen(3000, function() {
 // server.listen(process.env.PORT || 3000, function() {
 //     console.log("APP RUNNING ON PORT: " + port)
 // })
+//DMmNHHfVSff3yV3t
