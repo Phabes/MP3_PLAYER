@@ -337,11 +337,11 @@ function createData(albumName, callback) {
 }
 
 server.listen(3000, function() {
-    let finish = {
-        addressIP: "136.243.156.104:27017",
-        databaseName: "mo16834_lists"
-    }
-    createConnection(finish, function(data) {console.log(data)})
+    // let finish = {
+    //     addressIP: "127.0.0.1",
+    //     databaseName: "lists"
+    // }
+    // createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie 3000")
 })
 

@@ -12,7 +12,7 @@ class Net {
     createConnection(database, callback) {
         $.ajax({
             url: "localhost",
-            data: {action: "CREATE_CONNECTION", addressIP: "MP3.ct8.pl", databaseName: database},
+            data: {action: "CREATE_CONNECTION", addressIP: "127.0.0.1", databaseName: database},
             type: "POST",
             success: function(data) {
                 let obj = JSON.parse(data, 5, null)
