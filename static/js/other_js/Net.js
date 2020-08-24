@@ -3,10 +3,10 @@ console.log("Wczytano plik Net.js")
 class Net {
     constructor() {
         this.databaseConnection = false
-        this.createConnection("playlists", function(data) {
-            if(data = "CONNECTED")
-                net.loadAlbum("Eminem")
-        })
+        // this.createConnection("playlists", function(data) {
+        //     if(data = "CONNECTED")
+        //         net.loadAlbum("Eminem")
+        // })
     }
 
     createConnection(database, callback) {
