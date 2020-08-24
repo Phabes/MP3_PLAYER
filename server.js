@@ -10,7 +10,7 @@ const opersUser = require("./modules/OperationsUser.js")
 let dirsArray = [], filesArray = [], playlists = []
 let _db
 
-const mongoClient = require('mongodb').MongoClient;
+const mongoClient = require("mongodb").MongoClient;
 const uri = "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority";
 const client = new mongoClient(uri, {useNewUrlParser: true});
 // client.connect(err => {
