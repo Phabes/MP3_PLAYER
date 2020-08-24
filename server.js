@@ -2,8 +2,8 @@ const http = require("http")
 const qs = require("querystring")
 const fs = require("fs")
 const getMP3Duration = require('get-mp3-duration')
-const mongoClient = require('mongodb').MongoClient
-const ObjectID = require('mongodb').ObjectID
+// const mongoClient = require('mongodb').MongoClient
+// const ObjectID = require('mongodb').ObjectID
 const opers = require("./modules/Operations.js")
 const opersUser = require("./modules/OperationsUser.js")
 
