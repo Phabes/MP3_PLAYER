@@ -10,6 +10,16 @@ const opersUser = require("./modules/OperationsUser.js")
 let dirsArray = [], filesArray = [], playlists = []
 let _db
 
+const mongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority";
+const client = new mongoClient(uri, {useNewUrlParser: true});
+// client.connect(err => {
+//     const collection = client.db("playlists").collection("devices");
+//     // perform actions on the collection object
+//     client.close();
+// });
+
+
 const server = http.createServer(function(req, res) {
     switch(req.method) {
         case "GET":
@@ -286,7 +296,7 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    mongoClient.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", function(err, db) {
+    client.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", function(err, db) {
         if(err) {
             console.log(err)
             callback("NOT_CONNECTED")
