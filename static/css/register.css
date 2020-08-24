@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #332e2e;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mainDiv {
+    width: 320px;
+    height: 220px;
+    padding: 20px;
+    background-color: #eb4d34;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#mainDiv>#title {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mainDiv>.singleLabel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#mainDiv>.singleLabel>input {
+    width: 200px;
+}
+
+#mainDiv>.singleLabel>button {
+    width: 100px;
+}
+
+a {
+    text-decoration: none;
+}
