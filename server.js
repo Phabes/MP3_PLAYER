@@ -336,7 +336,7 @@ function createData(albumName, callback) {
     })
 }
 
-server.listen(3000, function() {
+server.listen(process.env.PORT || 3000, function() {
     let finish = {
         addressIP: "127.0.0.1",
         databaseName: "lists"
