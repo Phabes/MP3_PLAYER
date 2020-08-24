@@ -34,7 +34,7 @@ class Ui {
             let currentTime = $("#audio").prop("currentTime")
             let min = Math.floor(currentTime / 60)
             let sec = Math.floor(currentTime % 60)
-            if(sec < 10)
+            if (sec < 10)
                 sec = "0" + sec
             let fileDuration = music.currentPlayFiles[music.queue[music.currentSongIndex]].duration
             let update = min + ":" + sec + " / " + fileDuration
@@ -56,12 +56,12 @@ class Ui {
         })
 
         $("#globalPlayPause").on("click", function() {
-            if(music.currentSongTitle != null) {
-                if($(this).prop("alt") == "play") {
+            if (music.currentSongTitle != null) {
+                if ($(this).prop("alt") == "play") {
                     music.continueSong()
                     $(this).prop("src", "gfx/icons/pause.png")
                     $(this).prop("alt", "pause")
-                    if(music.currentSongDiv != null) {
+                    if (music.currentSongDiv != null) {
                         $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/pause.png")
                         $(".playButton", music.currentSongDiv).prop("alt", "pause")
                     }
@@ -70,7 +70,7 @@ class Ui {
                     music.pauseSong()
                     $(this).prop("src", "gfx/icons/play.png")
                     $(this).prop("alt", "play")
-                    if(music.currentSongDiv != null) {
+                    if (music.currentSongDiv != null) {
                         $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
                         $(".playButton", music.currentSongDiv).prop("alt", "play")
                     }
@@ -79,16 +79,16 @@ class Ui {
         })
 
         $("#skip_left").on("click", function() {
-            if(music.currentSongTitle != null && music.currentPlayFiles.length > 0) {
+            if (music.currentSongTitle != null && music.currentPlayFiles.length > 0) {
                 music.currentSongIndex--
-                if(music.currentSongIndex == -1)
+                if (music.currentSongIndex == -1)
                     music.currentSongIndex = music.queue.length - 1
                 ui.changeSong()
             }
         })
 
         $("#skip_right").on("click", function() {
-            if(music.currentSongTitle != null && music.currentPlayFiles.length > 0) {
+            if (music.currentSongTitle != null && music.currentPlayFiles.length > 0) {
                 music.currentSongIndex++
                 music.currentSongIndex %= music.queue.length
                 ui.changeSong()
@@ -97,7 +97,7 @@ class Ui {
 
         $("#duration").on("mousedown", function(e) {
             ui.click = true
-            if(music.currentSongTitle != null) {
+            if (music.currentSongTitle != null) {
                 ui.changeZip(e)
                 $(document).on("mousemove", function(e) {
                     ui.changeZip(e)
@@ -111,7 +111,7 @@ class Ui {
         })
 
         $("#volumeIMG").on("click", function() {
-            if($(this).prop("alt") == "volume_on") {
+            if ($(this).prop("alt") == "volume_on") {
                 music.volume = $("#audio").prop("volume")
                 $("#audio").prop("volume", 0)
                 $("#volumeZip").css("width", "0%")
@@ -135,7 +135,7 @@ class Ui {
 
         $("#volumeIMG").on("mouseout", function() {
             ui.interval = setInterval(function() {
-                if(!ui.volumeHover && !ui.click) {
+                if (!ui.volumeHover && !ui.click) {
                     $("#sideButtonsRight").css("width", "35px")
                     $("#volumeBorder").css("display", "none")
                     clearInterval(ui.interval)
@@ -144,14 +144,14 @@ class Ui {
         })
 
         $("#getPlaylists").on("click", function() {
-            if(localStorage.getItem("MP3_LOGIN") == null)
-                net.getPlaylistsToPlay("mo16834_lists")
+            if (localStorage.getItem("MP3_LOGIN") == null)
+                net.getPlaylistsToPlay("playlists")
             else
-                net_user.getPlaylistsToPlayUser("mo16834_users", localStorage.getItem("MP3_LOGIN"))
+                net_user.getPlaylistsToPlayUser("users", localStorage.getItem("MP3_LOGIN"))
         })
 
         $("#volumeBorder").on("mouseover", function() {
-            if($(this).css("display") == "flex")
+            if ($(this).css("display") == "flex")
                 ui.volumeHover = true
         })
 
@@ -161,7 +161,7 @@ class Ui {
 
         $("#volume").on("mousedown", function(e) {
             ui.click = true
-            if($("#volumeBorder").css("display") == "flex") {
+            if ($("#volumeBorder").css("display") == "flex") {
                 ui.changeVolume(e)
                 $(document).on("mousemove", function(e) {
                     ui.changeVolume(e)
@@ -170,7 +170,7 @@ class Ui {
         })
 
         $("#repeat").on("click", function() {
-            if($(this).prop("alt") == "repeat_off") {
+            if ($(this).prop("alt") == "repeat_off") {
                 music.repeat = true
                 $(this).prop("alt", "repeat_on")
                 $(this).prop("src", "gfx/icons/repeat_on.png")
@@ -183,7 +183,7 @@ class Ui {
         })
 
         $("#random").on("click", function() {
-            if($(this).prop("alt") == "random_off") {
+            if ($(this).prop("alt") == "random_off") {
                 music.random = true
                 $(this).prop("alt", "random_on")
                 $(this).prop("src", "gfx/icons/random_on.png")
@@ -197,15 +197,15 @@ class Ui {
         })
 
         $(document).on("keydown", function(e) {
-            if(!$("#newPlaylistName").is(":focus")) {
+            if (!$("#newPlaylistName").is(":focus")) {
                 //F
-                if(e.keyCode == 70)
+                if (e.keyCode == 70)
                     $("#showVisual").trigger("click")
                 //SPACEBAR
-                else if(e.keyCode == 32)
+                else if (e.keyCode == 32)
                     $("#globalPlayPause").trigger("click")
                 //M
-                else if(e.keyCode == 77)
+                else if (e.keyCode == 77)
                     $("#volumeIMG").trigger("click")
             }
         })
@@ -222,22 +222,22 @@ class Ui {
     }
 
     showHideVisual() {
-        if($("#visual").css("display") == "none")
+        if ($("#visual").css("display") == "none")
             $("#visual").css("display", "block")
         else
             $("#visual").css("display", "none")
     }
 
     changeVolume(e) {
-        if(e.pageX < $("#volume").offset().left)
+        if (e.pageX < $("#volume").offset().left)
             ui.changeVolumeParams(0, "volume_off")
-        else if(e.pageX > $("#volume").offset().left + $("#volume").width())
+        else if (e.pageX > $("#volume").offset().left + $("#volume").width())
             ui.changeVolumeParams(1, "volume_on")
         else {
             let volumeValue = (e.pageX - $("#volume").offset().left) / $("#volume").width()
-            if(volumeValue > 1)
+            if (volumeValue > 1)
                 volumeValue = 1
-            else if(volumeValue < 0)
+            else if (volumeValue < 0)
                 volumeValue = 0
             ui.changeVolumeParams(volumeValue, "volume_on")
         }
@@ -251,9 +251,9 @@ class Ui {
     }
 
     changeZip(e) {
-        if(e.pageX < $("#duration").offset().left)
+        if (e.pageX < $("#duration").offset().left)
             $("#audio").prop("currentTime", 0)
-        else if(e.pageX > $("#duration").offset().left + $("#duration").width())
+        else if (e.pageX > $("#duration").offset().left + $("#duration").width())
             music.endOfSong()
         else {
             let array = music.currentPlayFiles[music.queue[music.currentSongIndex]].duration.split(":")
@@ -267,7 +267,7 @@ class Ui {
         music.currentSongTitle = music.currentPlayFiles[music.queue[music.currentSongIndex]].title
         let src = "mp3/" + music.currentPlayFiles[music.queue[music.currentSongIndex]].album + "/" + music.currentSongTitle
         music.playNewSong(src)
-        if(music.currentAlbumLoaded == music.currentAlbumPlay && music.playlistLoaded == music.playlistPlaying) {
+        if (music.currentAlbumLoaded == music.currentAlbumPlay && music.playlistLoaded == music.playlistPlaying) {
             music.currentSongDiv.addClass("withoutHighlight")
             music.currentSongDiv.removeClass("perma")
             $(".buttonsContainer", music.currentSongDiv).css("display", "none")
@@ -293,7 +293,7 @@ class Ui {
     songsHighlight() {
         $(".singleSong").on("mouseover", function() {
             let str = $(this).get(0).className
-            if(!str.includes("perma")) {
+            if (!str.includes("perma")) {
                 $(this).removeClass("withoutHighlight")
                 $(this).addClass("highlight")
                 $(this).css("cursor", "pointer")
@@ -303,7 +303,7 @@ class Ui {
 
         $(".singleSong").on("mouseout", function() {
             let str = $(this).get(0).className
-            if(!str.includes("perma")) {
+            if (!str.includes("perma")) {
                 $(this).removeClass("highlight")
                 $(this).addClass("withoutHighlight")
                 $(".buttonsContainer", this).css("display", "none")

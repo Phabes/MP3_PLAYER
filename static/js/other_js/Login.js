@@ -2,18 +2,18 @@ console.log("Wczytano plik Login.js")
 
 $(document).ready(function() {
     if(localStorage.getItem("MP3_LOGIN") != null)
-        window.open("MP3.ct8.pl", "_self")
+        window.open("https://mc-mp3-player.herokuapp.com/", "_self")
 
     $("#btLogin").on("click", function() {
         $.ajax({
             url: "localhost",
-            data: {action: "LOGIN_USER", databaseName: "mo16834_users", login: $("#login").val(), password: $("#password").val()},
+            data: {action: "LOGIN_USER", databaseName: "users", login: $("#login").val(), password: $("#password").val()},
             type: "POST",
             success: function(data) {
                 console.log(data)
                 if(data == "LOGGED") {
                     localStorage.setItem("MP3_LOGIN", $("#login").val())
-                    window.open("MP3.ct8.pl", "_self")
+                    window.open("https://mc-mp3-player.herokuapp.com/", "_self")
                 }
                 else if(data == "NOT_LOGGED")
                     alert("ZŁE HASŁO")

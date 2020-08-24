@@ -1,24 +1,14 @@
 const http = require("http")
 const qs = require("querystring")
 const fs = require("fs")
-const getMP3Duration = require('get-mp3-duration')
-// const mongoClient = require('mongodb').MongoClient
-// const ObjectID = require('mongodb').ObjectID
+const getMP3Duration = require("get-mp3-duration")
+const mongoClient = require("mongodb").MongoClient
+const ObjectID = require("mongodb").ObjectID
 const opers = require("./modules/Operations.js")
 const opersUser = require("./modules/OperationsUser.js")
 
 let dirsArray = [], filesArray = [], playlists = []
 let _db
-
-const mongoClient = require("mongodb").MongoClient;
-const uri = "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority";
-const client = new mongoClient(uri, {useNewUrlParser: true});
-// client.connect(err => {
-//     const collection = client.db("playlists").collection("devices");
-//     // perform actions on the collection object
-//     client.close();
-// });
-
 
 const server = http.createServer(function(req, res) {
     switch(req.method) {
@@ -296,7 +286,7 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    client.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", function(err, db) {
+    mongoClient.connect(finish.addressIP + finish.databaseName + "?retryWrites=true&w=majority", function(err, db) {
         if(err) {
             console.log(err)
             callback("NOT_CONNECTED")
@@ -348,10 +338,10 @@ function createData(albumName, callback) {
 
 server.listen(process.env.PORT || 3000, function() {
     let finish = {
-        addressIP: "127.0.0.1",
-        databaseName: "lists"
+        addressIP: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/",
+        databaseName: "playlists"
     }
-    // createConnection(finish, function(data) {console.log(data)})
+    createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie 3000")
 })
 

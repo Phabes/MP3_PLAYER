@@ -5,12 +5,12 @@ $(document).ready(function() {
     $("#btRegister").on("click", function() {
         $.ajax({
             url: "localhost",
-            data: {action: "REGISTER_USER", databaseName: "mo16834_users", login: $("#login").val(), password: $("#password").val()},
+            data: {action: "REGISTER_USER", databaseName: "users", login: $("#login").val(), password: $("#password").val()},
             type: "POST",
             success: function(data) {
                 if(data == "CREATED") {
                     localStorage.setItem("MP3_LOGIN", $("#login").val())
-                    window.open("MP3.ct8.pl", "_self")
+                    window.open("https://mc-mp3-player.herokuapp.com/", "_self")
                 }
                 else if(data == "EXIST")
                     alert("TAKI UŻYTKOWNIK JUŻ ISTNIEJE")
