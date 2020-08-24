@@ -341,7 +341,7 @@ server.listen(process.env.PORT || 3000, function() {
         addressIP: "127.0.0.1",
         databaseName: "lists"
     }
-    createConnection(finish, function(data) {console.log(data)})
+    // createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie 3000")
 })
 
