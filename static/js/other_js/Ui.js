@@ -30,9 +30,7 @@ class Ui {
             $("#audio").trigger("play")
         })
         document.getElementById("audio").ontimeupdate = function() {
-            console.log(document.getElementById("audio").currentTime)
             let currentTime = $("#audio").prop("currentTime")
-            let currentTime = document.getElementById("audio").currentTime
             // console.log(currentTime)
             let min = Math.floor(currentTime / 60)
             let sec = Math.floor(currentTime % 60)
