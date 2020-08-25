@@ -338,7 +338,7 @@ function createData(albumName, callback) {
 }
 
 server.listen(port, function() {
-    let finish = {address: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority"}
+    let finish = {address: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists"}
     createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie " + port)
 })
