@@ -12,7 +12,7 @@ class Net {
     createConnection(database, callback) {
         $.ajax({
             url: settings.url,
-            data: {action: "CREATE_CONNECTION", address: settings.addressBegin + database + settings.addressEnd},
+            data: {action: "CREATE_CONNECTION", address: settings.mongoBegin + database + settings.mongoEnd},
             type: "POST",
             success: function(data) {
                 let obj = JSON.parse(data, 5, null)
