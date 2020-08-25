@@ -291,7 +291,11 @@ function createConnection(finish, callback) {
     mongoose.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true
-    }).catch(err => console.log("ERROR MESS " + err));
+    })
+    mongoose.connection.on("open", function(ref) {
+        console.log("Connected to mongo server.");
+    });
+    mongoose.connection.on('error', function(err) {console.log(err)});
     // const client = new mongoClient(process.env.ATLAS_URI, {useNewUrlParser: true});
     // client.connect(err => {
     //     if(err) {
