@@ -26,13 +26,15 @@ class Ui {
 
     audioChanges() {
         $("#audio").on("loadeddata", function() {
-            $("#audio").prop("currentTime", 0)
+            // $("#audio").prop("currentTime", 0)
             $("#audio").trigger("play")
-            $("#audio").prop("currentTime", 0.1)
+            $("#audio").prop("currentTime", 0)
         })
-        document.getElementById("audio").addEventListener("timeupdate", function() {
+        // document.getElementById("audio").addEventListener("timeupdate", function() {
+        // })
+
+        $("#audio").on("timeupdate", function(e) {
             let currentTime = $("#audio").prop("currentTime")
-            // console.log(currentTime)
             let min = Math.floor(currentTime / 60)
             let sec = Math.floor(currentTime % 60)
             if(sec < 10)
@@ -45,9 +47,6 @@ class Ui {
             let left = (currentTime / duration) * ($("#duration").width() - 10) + "px"
             $("#durationZip").css("left", left)
         })
-
-        // $("#audio").on("timeupdate", function(e) {
-        // })
 
         $("#audio").on("ended", function() {
             music.endOfSong()
