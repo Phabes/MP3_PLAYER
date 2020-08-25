@@ -20,8 +20,9 @@ class Music {
     }
 
     playNewSong(src) {
-        // $("#audio").trigger("pause")
-        $("#audio").trigger("stop")
+        $("#audio").trigger("pause")
+        // $("#audio").trigger("stop")
+        $("#audio").prop("currentTime", 0)
         $("#source").prop("src", src)
         $("#audio").trigger("load")
         $("#currentTitle").html(this.currentSongTitle)

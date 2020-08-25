@@ -32,7 +32,7 @@ class Ui {
 
         $("#audio").on("timeupdate", function(e) {
             let currentTime = $("#audio").prop("currentTime")
-            console.log(currentTime)
+            // console.log(currentTime)
             let min = Math.floor(currentTime / 60)
             let sec = Math.floor(currentTime % 60)
             if(sec < 10)
