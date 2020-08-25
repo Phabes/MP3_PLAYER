@@ -287,7 +287,9 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    mongoClient.connect(finish.address, function(err, db) {
+
+    const client = new mongoClient("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", {useNewUrlParser: true});
+    client.connect(err => {
         if(err) {
             console.log(err)
             callback("NOT_CONNECTED")
@@ -296,7 +298,18 @@ function createConnection(finish, callback) {
             _db = db
             callback("CONNECTED")
         }
-    })
+        client.close();
+    });
+    // mongoClient.connect(finish.address, function(err, db) {
+    //     if(err) {
+    //         console.log(err)
+    //         callback("NOT_CONNECTED")
+    //     }
+    //     else {
+    //         _db = db
+    //         callback("CONNECTED")
+    //     }
+    // })
 }
 
 function createData(albumName, callback) {
@@ -345,6 +358,8 @@ server.listen(port, function() {
 })
 
 //'
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://McWojownik:<password>@cluster0.wz5ya.mongodb.net/<dbname>?retryWrites=true&w=majority";
 
 // var http = require('http')
 // var port = process.env.PORT || 3000
