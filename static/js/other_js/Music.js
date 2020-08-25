@@ -21,8 +21,8 @@ class Music {
 
     playNewSong(src) {
         $("#audio").trigger("pause")
-        console.log(document.getElementById("audio").readyState)
-        $("#audio").prop("currentTime", 0)
+        // console.log(document.getElementById("audio").readyState)
+        // $("#audio").prop("currentTime", 0)
         $("#source").prop("src", src)
         $("#audio").trigger("load")
         $("#currentTitle").html(this.currentSongTitle)
