@@ -28,6 +28,7 @@ class Ui {
         $("#audio").on("loadeddata", function() {
             $("#audio").prop("currentTime", 0)
             $("#audio").trigger("play")
+            $("#audio").prop("currentTime", 0.1)
         })
         document.getElementById("audio").addEventListener("timeupdate", function() {
             let currentTime = $("#audio").prop("currentTime")
