@@ -4,13 +4,13 @@ $(document).ready(function() {
     localStorage.removeItem("MP3_LOGIN")
     $("#btRegister").on("click", function() {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "REGISTER_USER", databaseName: "users", login: $("#login").val(), password: $("#password").val()},
             type: "POST",
             success: function(data) {
                 if(data == "CREATED") {
                     localStorage.setItem("MP3_LOGIN", $("#login").val())
-                    window.open("https://mc-mp3-player.herokuapp.com/", "_self")
+                    window.open(settings.url, "_self")
                 }
                 else if(data == "EXIST")
                     alert("TAKI UŻYTKOWNIK JUŻ ISTNIEJE")

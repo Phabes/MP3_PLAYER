@@ -6,6 +6,7 @@ const mongoClient = require("mongodb").MongoClient
 const ObjectID = require("mongodb").ObjectID
 const opers = require("./modules/Operations.js")
 const opersUser = require("./modules/OperationsUser.js")
+const port = process.env.PORT || 3000
 
 let dirsArray = [], filesArray = [], playlists = []
 let _db
@@ -286,7 +287,7 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    mongoClient.connect(finish.addressIP + finish.databaseName + "?retryWrites=true&w=majority", function(err, db) {
+    mongoClient.connect(finish.address, function(err, db) {
         if(err) {
             console.log(err)
             callback("NOT_CONNECTED")
@@ -336,13 +337,10 @@ function createData(albumName, callback) {
     })
 }
 
-server.listen(process.env.PORT || 3000, function() {
-    let finish = {
-        addressIP: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/",
-        databaseName: "playlists"
-    }
+server.listen(port, function() {
+    let finish = {address: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority"}
     createConnection(finish, function(data) {console.log(data)})
-    console.log("serwer startuje na porcie 3000")
+    console.log("serwer startuje na porcie " + port)
 })
 
 // var http = require('http')

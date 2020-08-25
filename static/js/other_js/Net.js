@@ -11,8 +11,8 @@ class Net {
 
     createConnection(database, callback) {
         $.ajax({
-            url: "localhost",
-            data: {action: "CREATE_CONNECTION", addressIP: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/", databaseName: database},
+            url: settings.url,
+            data: {action: "CREATE_CONNECTION", address: settings.addressBegin + database + settings.addressEnd},
             type: "POST",
             success: function(data) {
                 let obj = JSON.parse(data, 5, null)
@@ -31,7 +31,7 @@ class Net {
 
     loadAlbum(albumName) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "LOAD_ALBUM", albumName: albumName},
             type: "POST",
             success: function(data) {
@@ -47,7 +47,7 @@ class Net {
 
     loadPlaylist(database, playlistName) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "LOAD_PLAYLIST", databaseName: database, playlistName: playlistName},
             type: "POST",
             success: function(data) {
@@ -67,7 +67,7 @@ class Net {
 
     getPlaylistsToPlay(database) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "SHOW_PLAYLISTS", databaseName: database},
             type: "POST",
             success: function(data) {
@@ -135,7 +135,7 @@ class Net {
 
     getPlaylistsToAdd(database, songInfo) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "SHOW_PLAYLISTS", databaseName: database},
             type: "POST",
             success: function(data) {
@@ -234,7 +234,7 @@ class Net {
 
     createNewPlaylist(database, playlistName, songInfo) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "CREATE_PLAYLIST", databaseName: database, playlistName: playlistName},
             type: "POST",
             success: function(data) {
@@ -283,7 +283,7 @@ class Net {
 
     addToPlaylist(database, playlistName, songInfo) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "ADD_TO_PLAYLIST", databaseName: database, playlistName: playlistName, songInfo: JSON.stringify(songInfo)},
             type: "POST",
             success: function(data) {
@@ -319,7 +319,7 @@ class Net {
 
     deletePlaylist(database, playlistName, divToRemove) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "DELETE_PLAYLIST", databaseName: database, playlistName: playlistName},
             type: "POST",
             success: function(data) {
@@ -347,7 +347,7 @@ class Net {
     deleteFromPlaylist(database, playlistName, file, indexToRemove, isCurrentSong) {
         // deleteFromPlaylist(database, playlistName, file, divToRemove, indexToRemove, isCurrentSong) {
         $.ajax({
-            url: "localhost",
+            url: settings.url,
             data: {action: "DELETE_FROM_PLAYLIST", databaseName: database, playlistName: playlistName, songInfo: JSON.stringify(file)},
             type: "POST",
             success: function(data) {
