@@ -343,6 +343,8 @@ server.listen(port, function() {
     console.log("serwer startuje na porcie " + port)
 })
 
+//'
+
 // var http = require('http')
 // var port = process.env.PORT || 3000
 // var server = http.createServer(function(req, res) {
