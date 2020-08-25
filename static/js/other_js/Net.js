@@ -54,10 +54,6 @@ class Net {
                 let obj = JSON.parse(data, 5, null)
                 music.playlistLoaded = true
                 net.createSongsLayout(obj, playlistName, true)
-                // if (playlistName == music.currentAlbumPlay) {
-                //     music.currentPlayFiles = music.currentLoadedFiles
-                //     music.queue.push(music.queue.length)
-                // }
             },
             error: function(xhr, status, error) {
                 console.log(xhr)
@@ -150,7 +146,6 @@ class Net {
                     let bigDiv = $("<div>")
                         .prop("id", "mainPhrases")
                     let smallDiv = $("<div>")
-                        // .addClass("playlistName")
                         .prop("id", "playlistNameDiv")
                     let input = $("<input>")
                         .prop("id", "newPlaylistName")
@@ -238,40 +233,8 @@ class Net {
             data: {action: "CREATE_PLAYLIST", databaseName: database, playlistName: playlistName},
             type: "POST",
             success: function(data) {
-                if(data == "CREATED") {
+                if(data == "CREATED")
                     net.getPlaylistsToAdd(database, songInfo)
-                    // $(".singleSong").unbind("mouseover")
-                    // $(".singleSong").unbind("mouseout")
-                    // let bigDiv = $("<div>")
-                    //     .addClass("singleSong")
-                    //     .addClass("withoutHighlight")
-                    //     .on("click", function() {
-                    //         net.addToPlaylist(database, playlistName, songInfo)
-                    //     })
-                    // let smallDiv = $("<div>")
-                    //     .addClass("playlistName")
-                    //     .html(playlistName)
-                    // bigDiv.append(smallDiv)
-                    // smallDiv = $("<div>")
-                    //     .addClass("songButtons")
-                    // let container = $("<div>")
-                    //     .addClass("buttonsContainer")
-                    // let img = $("<img>")
-                    //     .addClass("deleteButton circle hover")
-                    //     .prop("src", "gfx/icons/delete.png")
-                    //     .prop("alt", "delete")
-                    //     .on("click", function(e) {
-                    //         e.stopPropagation()
-                    //         let agree = confirm("Czy na pewno chcesz usunąć playlistę " + playlistName)
-                    //         if (agree)
-                    //             net.deletePlaylist(database, playlistName, bigDiv)
-                    //     })
-                    // container.append(img)
-                    // smallDiv.append(container)
-                    // bigDiv.append(smallDiv)
-                    // $("#songs").append(bigDiv)
-                    // ui.songsHighlight()
-                }
                 else
                     alert("NIE UTWORZONO")
             },
@@ -289,7 +252,6 @@ class Net {
             success: function(data) {
                 let obj = JSON.parse(data, 5, null)
                 if(obj.actionBack == "ADDED") {
-                    // console.log(music.playlistLoaded, music.playlistPlaying, music.currentAlbumPlay, playlistName)
                     if(music.currentAlbumPlay == playlistName && music.playlistPlaying) {
                         music.currentPlayFiles.push(obj.song)
                         if(music.random)
@@ -306,8 +268,6 @@ class Net {
                 }
                 else if(obj.actionBack == "EXIST")
                     alert("JUŻ TAM JEST")
-                // else if (obj.actionBack == "NOT_FOUND")
-                //     alert("DODANO ALE NIE POBRANO INFORMACJI")
                 else
                     alert("NIE DODANO")
             },
@@ -345,7 +305,6 @@ class Net {
     }
 
     deleteFromPlaylist(database, playlistName, file, indexToRemove, isCurrentSong) {
-        // deleteFromPlaylist(database, playlistName, file, divToRemove, indexToRemove, isCurrentSong) {
         $.ajax({
             url: settings.url,
             data: {action: "DELETE_FROM_PLAYLIST", databaseName: database, playlistName: playlistName, songInfo: JSON.stringify(file)},
@@ -353,35 +312,14 @@ class Net {
             success: function(data) {
                 if(data = "DELETED") {
                     net.loadPlaylist(database, playlistName)
-                    // $(divToRemove).remove()
-                    // if ($(".singleSong").length == 0) {
-                    //     let bigDiv = $("<div>")
-                    //         .addClass("singleSong")
-                    //         .addClass("withoutHighlight")
-                    //         .html("BRAK UTWORÓW")
-                    //     $("#songs").append(bigDiv)
-                    // }
-                    // let remember = null
-                    // console.log(file, indexToRemove, music.queue)
-                    // if (music.queue.length != 0) {
-                    // console.log(music.currentAlbumPlay, music.currentAlbumLoaded, playlistName)
-                    // music.currentLoadedFiles.splice(indexToRemove, 1)
-                    // music.currentPlayFiles = [...music.currentLoadedFiles]
-                    // console.log(music.currentPlayFiles)
-                    // console.log(music.currentLoadedFiles)
-                    // music.currentLoadedFiles.splice(indexToRemove, 1)
-                    // console.log(music.currentPlayFiles)
-                    // console.log(music.currentLoadedFiles)
                     if(music.currentAlbumPlay == playlistName && music.playlistPlaying) {
                         music.currentPlayFiles.splice(indexToRemove, 1)
                         let songIndex = music.queue.findIndex(e => e == indexToRemove)
                         if(songIndex < music.currentSongIndex)
                             music.currentSongIndex--
                         for(let i = music.queue.length - 1; i >= 0; i--) {
-                            if(music.queue[i] == indexToRemove) {
+                            if(music.queue[i] == indexToRemove)
                                 music.queue.splice(i, 1)
-                                // remember = i - 1
-                            }
                             else if(music.queue[i] > indexToRemove)
                                 music.queue[i]--
                         }
@@ -393,17 +331,6 @@ class Net {
                         else if(isCurrentSong)
                             ui.changeSong()
                     }
-                    // net.loadPlaylist(database, playlistName)
-                    // for (let i = music.currentLoadedFiles.length - 1; i >= 0; i--) {
-                    //     if (music.currentLoadedFiles[i]._id == file._id) {
-                    //         music.currentLoadedFiles.splice(i, 1)
-                    //         break
-                    //     }
-                    // }
-                    // if (remember != null) {
-                    //     music.currentSongIndex = remember
-                    // }
-                    // console.log(music.queue, music.currentSongIndex)
                 }
                 else
                     alert("NIE USUNIĘTO")
@@ -574,14 +501,7 @@ class Net {
                                     music.playlistPlaying = true
                                 else
                                     music.playlistPlaying = false
-                                // if (music.currentAlbumPlay != music.currentAlbumLoaded)
                                 music.createQueue(index)
-                                // else {
-                                //     music.queue.forEach((number, i) => {
-                                //         if (number == index)
-                                //             music.currentSongIndex = i
-                                //     })
-                                // }
                                 let src = "mp3/" + file.album + "/" + file.title
                                 music.playNewSong(src)
                                 if(music.currentSongDiv != null) {
@@ -609,20 +529,11 @@ class Net {
                             }
                         }
                         else {
-                            // if ($("#globalPlayPause").prop("alt") == "play") {
-                            //     $("#globalPlayPause").prop("src", "gfx/icons/pause.png")
-                            //     $("#globalPlayPause").prop("alt", "pause")
-                            //     $(this).prop("src", "gfx/icons/pause.png")
-                            //     $(this).prop("alt", "pause")
-                            //     music.continueSong()
-                            // }
-                            // else {
                             music.pauseSong()
                             $("#globalPlayPause").prop("src", "gfx/icons/play.png")
                             $("#globalPlayPause").prop("alt", "play")
                             $(this).prop("src", "gfx/icons/play.png")
                             $(this).prop("alt", "play")
-                            // }
                         }
                     })
                 container.append(img)

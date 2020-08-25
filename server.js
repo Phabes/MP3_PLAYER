@@ -4,7 +4,6 @@ const fs = require("fs")
 const getMP3Duration = require("get-mp3-duration")
 const mongoClient = require("mongodb").MongoClient
 const ObjectID = require("mongodb").ObjectID
-const mongoose = require("mongoose")
 const opers = require("./modules/Operations.js")
 const opersUser = require("./modules/OperationsUser.js")
 const port = process.env.PORT || 3000
@@ -288,26 +287,6 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    // mongoose.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", {
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true
-    // })
-    // mongoose.connection.on("open", function(ref) {
-    //     console.log("Connected to mongo server.");
-    // });
-    // mongoose.connection.on('error', function(err) {console.log(err)});
-    // const client = new mongoClient(process.env.ATLAS_URI, {useNewUrlParser: true});
-    // client.connect(err => {
-    //     if(err) {
-    //         console.log(err)
-    //         callback("NOT_CONNECTED")
-    //     }
-    //     else {
-    //         _db = db
-    //         callback("CONNECTED")
-    //     }
-    //     client.close();
-    // });
     mongoClient.connect(finish.address, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
         if(err) {
             console.log(err)
@@ -363,18 +342,3 @@ server.listen(port, function() {
     createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie " + port)
 })
-
-//'
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://McWojownik:<password>@cluster0.wz5ya.mongodb.net/<dbname>?retryWrites=true&w=majority";
-
-// var http = require('http')
-// var port = process.env.PORT || 3000
-// var server = http.createServer(function(req, res) {
-//     res.writeHead(200, {'Content-Type': 'text/plain'})
-//     res.end("hello world!")
-// })
-// server.listen(process.env.PORT || 3000, function() {
-//     console.log("APP RUNNING ON PORT: " + port)
-// })
-//DMmNHHfVSff3yV3t

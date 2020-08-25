@@ -6,9 +6,7 @@ class Music {
         this.currentAlbumPlay = null
         this.currentLoadedFiles = null
         this.currentPlayFiles = null
-        // this.currentSong = null
         this.currentSongTitle = null
-        // this.currentSongMaxDuration = null
         this.currentSongDiv = null
         this.queue = []
         this.currentSongIndex = 0
@@ -65,7 +63,6 @@ class Music {
         ui.click = false
         $(document).unbind("mousemove")
         if(this.repeat) {
-            // let src = "mp3/" + this.currentPlayFiles[this.queue[this.currentSongIndex]].album + "/" + this.currentSongTitle
             let src = "mp3/" + this.currentPlayFiles[this.queue[this.currentSongIndex]].album + "/" + this.currentSongTitle
             this.playNewSong(src)
         }
@@ -90,9 +87,7 @@ class Music {
         this.currentAlbumPlay = null
         this.currentLoadedFiles = null
         this.currentPlayFiles = null
-        // this.currentSong = null
         this.currentSongTitle = null
-        // this.currentSongMaxDuration = null
         this.currentSongDiv = null
     }
 }
