@@ -288,14 +288,14 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    mongoose.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    mongoose.connection.on("open", function(ref) {
-        console.log("Connected to mongo server.");
-    });
-    mongoose.connection.on('error', function(err) {console.log(err)});
+    // mongoose.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", {
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true
+    // })
+    // mongoose.connection.on("open", function(ref) {
+    //     console.log("Connected to mongo server.");
+    // });
+    // mongoose.connection.on('error', function(err) {console.log(err)});
     // const client = new mongoClient(process.env.ATLAS_URI, {useNewUrlParser: true});
     // client.connect(err => {
     //     if(err) {
@@ -308,16 +308,16 @@ function createConnection(finish, callback) {
     //     }
     //     client.close();
     // });
-    // mongoClient.connect(finish.address, function(err, db) {
-    //     if(err) {
-    //         console.log(err)
-    //         callback("NOT_CONNECTED")
-    //     }
-    //     else {
-    //         _db = db
-    //         callback("CONNECTED")
-    //     }
-    // })
+    mongoClient.connect(finish.address, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
+        if(err) {
+            console.log(err)
+            callback("NOT_CONNECTED")
+        }
+        else {
+            _db = db
+            callback("CONNECTED")
+        }
+    })
 }
 
 function createData(albumName, callback) {
