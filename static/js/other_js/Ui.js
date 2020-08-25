@@ -29,9 +29,10 @@ class Ui {
             $("#audio").prop("currentTime", 0)
             $("#audio").trigger("play")
         })
-
-        $("#audio").on("timeupdate", function(e) {
+        document.getElementById("audio").ontimeupdate = function() {
+            console.log(document.getElementById("audio").currentTime)
             let currentTime = $("#audio").prop("currentTime")
+            let currentTime = document.getElementById("audio").currentTime
             // console.log(currentTime)
             let min = Math.floor(currentTime / 60)
             let sec = Math.floor(currentTime % 60)
@@ -44,7 +45,10 @@ class Ui {
             let duration = parseFloat(array[0]) * 60 + parseFloat(array[1])
             let left = (currentTime / duration) * ($("#duration").width() - 10) + "px"
             $("#durationZip").css("left", left)
-        })
+        }
+
+        // $("#audio").on("timeupdate", function(e) {
+        // })
 
         $("#audio").on("ended", function() {
             music.endOfSong()
