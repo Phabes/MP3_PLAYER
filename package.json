@@ -5,7 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "get-mp3-duration": "^1.0.0",
-    "mongodb": "^2.2.36"
+    "mongodb": "^2.2.36",
+    "mongoose": "^5.10.0"
   },
   "devDependencies": {},
   "scripts": {

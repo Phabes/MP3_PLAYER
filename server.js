@@ -4,6 +4,7 @@ const fs = require("fs")
 const getMP3Duration = require("get-mp3-duration")
 const mongoClient = require("mongodb").MongoClient
 const ObjectID = require("mongodb").ObjectID
+const mongoose = require("mongoose")
 const opers = require("./modules/Operations.js")
 const opersUser = require("./modules/OperationsUser.js")
 const port = process.env.PORT || 3000
@@ -287,7 +288,10 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    console.log(process.env.ATLAS_URI)
+    mongoose.connect("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).catch(err => console.log("ERROR MESS " + err));
     // const client = new mongoClient(process.env.ATLAS_URI, {useNewUrlParser: true});
     // client.connect(err => {
     //     if(err) {
