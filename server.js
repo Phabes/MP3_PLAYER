@@ -289,7 +289,7 @@ function servResponse(req, res) {
 function createConnection(finish, callback) {
     mongoClient.connect(finish.address, function(err, db) {
         if(err) {
-            console.log("JPRDL")
+            console.log(err)
             callback("NOT_CONNECTED")
         }
         else {
