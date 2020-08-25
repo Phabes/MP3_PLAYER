@@ -20,7 +20,8 @@ class Music {
     }
 
     playNewSong(src) {
-        $("#audio").trigger("pause")
+        // $("#audio").trigger("pause")
+        $("#audio").trigger("stop")
         $("#source").prop("src", src)
         $("#audio").trigger("load")
         $("#currentTitle").html(this.currentSongTitle)
@@ -37,17 +38,17 @@ class Music {
     createQueue(index) {
         this.queue = []
         this.currentSongIndex = 0
-        if (this.currentSongTitle != null) {
+        if(this.currentSongTitle != null) {
             this.queue.push(index)
-            if (this.random) {
-                while (this.queue.length != this.currentPlayFiles.length) {
+            if(this.random) {
+                while(this.queue.length != this.currentPlayFiles.length) {
                     let rand = Math.floor(Math.random() * this.currentPlayFiles.length)
-                    if (checkNumber(rand))
+                    if(checkNumber(rand))
                         this.queue.push(rand)
                     function checkNumber(rand) {
                         let agree = true
                         music.queue.forEach(number => {
-                            if (number == rand)
+                            if(number == rand)
                                 agree = false
                         })
                         return agree
@@ -55,7 +56,7 @@ class Music {
                 }
             }
             else {
-                for (let i = index + 1; this.queue.length != this.currentPlayFiles.length; i++)
+                for(let i = index + 1; this.queue.length != this.currentPlayFiles.length; i++)
                     this.queue.push(i % this.currentPlayFiles.length)
             }
         }
@@ -64,7 +65,7 @@ class Music {
     endOfSong() {
         ui.click = false
         $(document).unbind("mousemove")
-        if (this.repeat) {
+        if(this.repeat) {
             // let src = "mp3/" + this.currentPlayFiles[this.queue[this.currentSongIndex]].album + "/" + this.currentSongTitle
             let src = "mp3/" + this.currentPlayFiles[this.queue[this.currentSongIndex]].album + "/" + this.currentSongTitle
             this.playNewSong(src)
