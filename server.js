@@ -287,7 +287,7 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-    mongoClient.connect(finish.address, function(err, db) {
+    mongoClient.connect(finish.address, {server: {auto_reconnect: true}}, function(err, db) {
         if(err) {
             console.log(err)
             callback("NOT_CONNECTED")
@@ -338,7 +338,7 @@ function createData(albumName, callback) {
 }
 
 server.listen(port, function() {
-    let finish = {address: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists"}
+    let finish = {address: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority"}
     createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie " + port)
 })
