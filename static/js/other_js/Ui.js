@@ -50,6 +50,58 @@ class Ui {
         })
     }
 
+    songClick(albumName, bigDiv, file, index, icon) {
+        if(!$(bigDiv).hasClass("perma")) {
+            $("#globalPlayPause").prop("src", "gfx/icons/pause.png")
+            $("#globalPlayPause").prop("alt", "pause")
+            $(icon).prop("src", "gfx/icons/pause.png")
+            $(icon).prop("alt", "pause")
+            $(bigDiv).addClass("perma")
+            $(bigDiv).removeClass("highlight")
+            if(music.currentAlbumLoaded != music.currentAlbumPlay || (music.currentAlbumLoaded == music.currentAlbumPlay && music.playlistLoaded != music.playlistPlaying)) {
+                music.currentPlayFiles = [...music.currentLoadedFiles]
+                music.currentAlbumPlay = albumName
+                music.currentSongTitle = file.title
+                if(music.playlistLoaded)
+                    music.playlistPlaying = true
+                else
+                    music.playlistPlaying = false
+                music.createQueue(index)
+                let src = "mp3/" + file.album + "/" + file.title
+                music.playNewSong(src)
+                if(music.currentSongDiv != null) {
+                    music.currentSongDiv.addClass("withoutHighlight")
+                    music.currentSongDiv.removeClass("perma")
+                    $(".buttonsContainer", music.currentSongDiv).css("display", "none")
+                    $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
+                    $(".playButton", music.currentSongDiv).prop("alt", "play")
+                }
+                music.currentSongDiv = $(bigDiv)
+            }
+            else if(music.currentSongTitle == file.title)
+                music.continueSong()
+            else {
+                music.currentSongTitle = file.title
+                music.currentSongIndex = music.queue.findIndex(e => e == index)
+                let src = "mp3/" + file.album + "/" + music.currentSongTitle
+                music.playNewSong(src)
+                music.currentSongDiv.addClass("withoutHighlight")
+                music.currentSongDiv.removeClass("perma")
+                $(".buttonsContainer", music.currentSongDiv).css("display", "none")
+                $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
+                $(".playButton", music.currentSongDiv).prop("alt", "play")
+                music.currentSongDiv = $(bigDiv)
+            }
+        }
+        else {
+            music.pauseSong()
+            $("#globalPlayPause").prop("src", "gfx/icons/play.png")
+            $("#globalPlayPause").prop("alt", "play")
+            $(icon).prop("src", "gfx/icons/play.png")
+            $(icon).prop("alt", "play")
+        }
+    }
+
     globalChanges() {
         $("#durationZip").on("click", function(e) {
             e.stopPropagation()

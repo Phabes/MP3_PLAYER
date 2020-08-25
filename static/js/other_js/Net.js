@@ -423,47 +423,8 @@ class Net {
                     .addClass("singleSong")
                     .addClass("withoutHighlight")
                     .on("click", function() {
-                        // if (window.innerWidth <= 700) {
-                        //     if (!$(bigDiv).hasClass("perma")) {
-                        //         $("#globalPlayPause").prop("src", "gfx/icons/pause.png")
-                        //         $("#globalPlayPause").prop("alt", "pause")
-                        //         $(bigDiv).addClass("perma")
-                        //         $(bigDiv).removeClass("highlight")
-                        //         music.currentPlayFiles = music.currentLoadedFiles
-                        //         music.currentSong = file
-                        //         if (music.currentAlbumPlay != music.currentAlbumLoaded)
-                        //             music.createQueue(index)
-                        //         else {
-                        //             music.queue.forEach((number, i) => {
-                        //                 if (number == index)
-                        //                     music.currentSongIndex = i
-                        //             })
-                        //         }
-                        //         music.currentAlbumPlay = albumName
-                        //         let src = "mp3/" + file.album + "/" + file.title
-                        //         music.playNewSong(src)
-                        //         if (music.currentSongDiv != null) {
-                        //             music.currentSongDiv.addClass("withoutHighlight")
-                        //             music.currentSongDiv.removeClass("perma")
-                        //             $(".buttonsContainer", music.currentSongDiv).css("display", "none")
-                        //             $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
-                        //             $(".playButton", music.currentSongDiv).prop("alt", "play")
-                        //         }
-                        //         music.currentSongDiv = $(bigDiv)
-                        //     }
-                        //     else {
-                        //         if ($("#globalPlayPause").prop("alt") == "play") {
-                        //             $("#globalPlayPause").prop("src", "gfx/icons/pause.png")
-                        //             $("#globalPlayPause").prop("alt", "pause")
-                        //             music.continueSong()
-                        //         }
-                        //         else {
-                        //             $("#globalPlayPause").prop("src", "gfx/icons/play.png")
-                        //             $("#globalPlayPause").prop("alt", "play")
-                        //             music.pauseSong()
-                        //         }
-                        //     }
-                        // }
+                        if(window.innerWidth <= 700)
+                            ui.songClick(albumName, bigDiv, file, index, this)
                     })
                 let smallDiv = $("<div>")
                     .addClass("songAlbum")
@@ -486,55 +447,7 @@ class Net {
                     .prop("src", "gfx/icons/play.png")
                     .prop("alt", "play")
                     .on("click", function() {
-                        if($(this).prop("alt") == "play") {
-                            $("#globalPlayPause").prop("src", "gfx/icons/pause.png")
-                            $("#globalPlayPause").prop("alt", "pause")
-                            $(this).prop("src", "gfx/icons/pause.png")
-                            $(this).prop("alt", "pause")
-                            $(bigDiv).addClass("perma")
-                            $(bigDiv).removeClass("highlight")
-                            if(music.currentAlbumLoaded != music.currentAlbumPlay || (music.currentAlbumLoaded == music.currentAlbumPlay && music.playlistLoaded != music.playlistPlaying)) {
-                                music.currentPlayFiles = [...music.currentLoadedFiles]
-                                music.currentAlbumPlay = albumName
-                                music.currentSongTitle = file.title
-                                if(music.playlistLoaded)
-                                    music.playlistPlaying = true
-                                else
-                                    music.playlistPlaying = false
-                                music.createQueue(index)
-                                let src = "mp3/" + file.album + "/" + file.title
-                                music.playNewSong(src)
-                                if(music.currentSongDiv != null) {
-                                    music.currentSongDiv.addClass("withoutHighlight")
-                                    music.currentSongDiv.removeClass("perma")
-                                    $(".buttonsContainer", music.currentSongDiv).css("display", "none")
-                                    $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
-                                    $(".playButton", music.currentSongDiv).prop("alt", "play")
-                                }
-                                music.currentSongDiv = $(bigDiv)
-                            }
-                            else if(music.currentSongTitle == file.title)
-                                music.continueSong()
-                            else {
-                                music.currentSongTitle = file.title
-                                music.currentSongIndex = music.queue.findIndex(e => e == index)
-                                let src = "mp3/" + file.album + "/" + music.currentSongTitle
-                                music.playNewSong(src)
-                                music.currentSongDiv.addClass("withoutHighlight")
-                                music.currentSongDiv.removeClass("perma")
-                                $(".buttonsContainer", music.currentSongDiv).css("display", "none")
-                                $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
-                                $(".playButton", music.currentSongDiv).prop("alt", "play")
-                                music.currentSongDiv = $(bigDiv)
-                            }
-                        }
-                        else {
-                            music.pauseSong()
-                            $("#globalPlayPause").prop("src", "gfx/icons/play.png")
-                            $("#globalPlayPause").prop("alt", "play")
-                            $(this).prop("src", "gfx/icons/play.png")
-                            $(this).prop("alt", "play")
-                        }
+                        ui.songClick(albumName, bigDiv, file, index, this)
                     })
                 container.append(img)
                 img = $("<img>")
