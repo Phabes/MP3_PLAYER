@@ -287,19 +287,19 @@ function servResponse(req, res) {
 }
 
 function createConnection(finish, callback) {
-
-    const client = new mongoClient(process.env.ATLAS_URI, {useNewUrlParser: true});
-    client.connect(err => {
-        if(err) {
-            console.log(err)
-            callback("NOT_CONNECTED")
-        }
-        else {
-            _db = db
-            callback("CONNECTED")
-        }
-        client.close();
-    });
+    console.log(process.env.ATLAS_URI)
+    // const client = new mongoClient(process.env.ATLAS_URI, {useNewUrlParser: true});
+    // client.connect(err => {
+    //     if(err) {
+    //         console.log(err)
+    //         callback("NOT_CONNECTED")
+    //     }
+    //     else {
+    //         _db = db
+    //         callback("CONNECTED")
+    //     }
+    //     client.close();
+    // });
     // mongoClient.connect(finish.address, function(err, db) {
     //     if(err) {
     //         console.log(err)
