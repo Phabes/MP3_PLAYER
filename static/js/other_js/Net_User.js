@@ -267,7 +267,6 @@ class Net_User {
             success: function(data) {
                 if(data = "DELETED") {
                     net_user.loadPlaylistUser(database, login, playlistName)
-                    console.log(music.currentAlbumPlay == playlistName, music.playlistPlaying)
                     if(music.currentAlbumPlay == playlistName && music.playlistPlaying) {
                         music.currentPlayFiles.splice(indexToRemove, 1)
                         let songIndex = music.queue.findIndex(e => e == indexToRemove)

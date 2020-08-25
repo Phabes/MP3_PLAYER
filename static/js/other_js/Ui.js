@@ -50,12 +50,12 @@ class Ui {
         })
     }
 
-    songClick(albumName, bigDiv, file, index, icon) {
+    songClick(bigDiv, file, albumName, index) {
         if(!$(bigDiv).hasClass("perma")) {
             $("#globalPlayPause").prop("src", "gfx/icons/pause.png")
             $("#globalPlayPause").prop("alt", "pause")
-            $(icon).prop("src", "gfx/icons/pause.png")
-            $(icon).prop("alt", "pause")
+            $(".playButton", $(bigDiv)).prop("src", "gfx/icons/pause.png")
+            $(".playButton", $(bigDiv)).prop("alt", "pause")
             $(bigDiv).addClass("perma")
             $(bigDiv).removeClass("highlight")
             if(music.currentAlbumLoaded != music.currentAlbumPlay || (music.currentAlbumLoaded == music.currentAlbumPlay && music.playlistLoaded != music.playlistPlaying)) {
@@ -69,17 +69,8 @@ class Ui {
                 music.createQueue(index)
                 let src = "mp3/" + file.album + "/" + file.title
                 music.playNewSong(src)
-                if(music.currentSongDiv != null) {
-                    music.currentSongDiv.addClass("withoutHighlight")
-                    music.currentSongDiv.removeClass("perma")
-                    $(".buttonsContainer", music.currentSongDiv).css("display", "none")
-                    $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
-                    $(".playButton", music.currentSongDiv).prop("alt", "play")
-                }
                 music.currentSongDiv = $(bigDiv)
             }
-            else if(music.currentSongTitle == file.title)
-                music.continueSong()
             else {
                 music.currentSongTitle = file.title
                 music.currentSongIndex = music.queue.findIndex(e => e == index)
@@ -94,11 +85,10 @@ class Ui {
             }
         }
         else {
-            music.pauseSong()
-            $("#globalPlayPause").prop("src", "gfx/icons/play.png")
-            $("#globalPlayPause").prop("alt", "play")
-            $(icon).prop("src", "gfx/icons/play.png")
-            $(icon).prop("alt", "play")
+            if($("#globalPlayPause").prop("alt") == "pause")
+                music.pauseSong($(".playButton", $(bigDiv)))
+            else
+                music.continueSong($(".playButton", $(bigDiv)))
         }
     }
 
@@ -109,24 +99,10 @@ class Ui {
 
         $("#globalPlayPause").on("click", function() {
             if(music.currentSongTitle != null) {
-                if($(this).prop("alt") == "play") {
-                    music.continueSong()
-                    $(this).prop("src", "gfx/icons/pause.png")
-                    $(this).prop("alt", "pause")
-                    if(music.currentSongDiv != null) {
-                        $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/pause.png")
-                        $(".playButton", music.currentSongDiv).prop("alt", "pause")
-                    }
-                }
-                else {
-                    music.pauseSong()
-                    $(this).prop("src", "gfx/icons/play.png")
-                    $(this).prop("alt", "play")
-                    if(music.currentSongDiv != null) {
-                        $(".playButton", music.currentSongDiv).prop("src", "gfx/icons/play.png")
-                        $(".playButton", music.currentSongDiv).prop("alt", "play")
-                    }
-                }
+                if($(this).prop("alt") == "play")
+                    music.continueSong($(".playButton", music.currentSongDiv))
+                else
+                    music.pauseSong($(".playButton", music.currentSongDiv))
             }
         })
 

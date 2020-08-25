@@ -424,7 +424,7 @@ class Net {
                     .addClass("withoutHighlight")
                     .on("click", function() {
                         if(window.innerWidth <= 700)
-                            ui.songClick(albumName, bigDiv, file, index, this)
+                            ui.songClick(bigDiv, file, albumName, index)
                     })
                 let smallDiv = $("<div>")
                     .addClass("songAlbum")
@@ -447,14 +447,15 @@ class Net {
                     .prop("src", "gfx/icons/play.png")
                     .prop("alt", "play")
                     .on("click", function() {
-                        ui.songClick(albumName, bigDiv, file, index, this)
+                        ui.songClick(bigDiv, file, albumName, index)
                     })
                 container.append(img)
                 img = $("<img>")
                     .addClass("circle hover")
                     .prop("src", "gfx/icons/add.png")
                     .prop("alt", "add")
-                    .on("click", function() {
+                    .on("click", function(e) {
+                        e.stopPropagation()
                         if(localStorage.getItem("MP3_LOGIN") == null)
                             net.getPlaylistsToAdd("playlists", file)
                         else
@@ -466,7 +467,8 @@ class Net {
                         .addClass("circle hover")
                         .prop("src", "gfx/icons/delete.png")
                         .prop("alt", "delete")
-                        .on("click", function() {
+                        .on("click", function(e) {
+                            e.stopPropagation()
                             let current = music.queue[music.currentSongIndex] == index
                             if(localStorage.getItem("MP3_LOGIN") == null)
                                 net.deleteFromPlaylist("playlists", albumName, file, index, current)

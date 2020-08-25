@@ -24,11 +24,19 @@ class Music {
         $("#currentTitle").html(this.currentSongTitle)
     }
 
-    pauseSong() {
+    pauseSong(icon) {
+        $("#globalPlayPause").prop("src", "gfx/icons/play.png")
+        $("#globalPlayPause").prop("alt", "play")
+        icon.prop("src", "gfx/icons/play.png")
+        icon.prop("alt", "play")
         $("#audio").trigger("pause")
     }
 
-    continueSong() {
+    continueSong(icon) {
+        $("#globalPlayPause").prop("src", "gfx/icons/pause.png")
+        $("#globalPlayPause").prop("alt", "pause")
+        $(icon).prop("src", "gfx/icons/pause.png")
+        $(icon).prop("alt", "pause")
         $("#audio").trigger("play")
     }
 
