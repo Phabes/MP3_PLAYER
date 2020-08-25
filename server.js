@@ -288,7 +288,7 @@ function servResponse(req, res) {
 
 function createConnection(finish, callback) {
 
-    const client = new mongoClient("mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority", {useNewUrlParser: true});
+    const client = new mongoClient(process.env.ATLAS_URI, {useNewUrlParser: true});
     client.connect(err => {
         if(err) {
             console.log(err)
@@ -351,7 +351,6 @@ function createData(albumName, callback) {
 }
 
 server.listen(port, function() {
-    console.log(process.env.MONGODB_URI)
     let finish = {address: "mongodb+srv://McWojownik:DMmNHHfVSff3yV3t@cluster0.wz5ya.mongodb.net/playlists?retryWrites=true&w=majority"}
     createConnection(finish, function(data) {console.log(data)})
     console.log("serwer startuje na porcie " + port)
