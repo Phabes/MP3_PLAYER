@@ -7,6 +7,7 @@ const ObjectID = require("mongodb").ObjectID;
 const opers = require("./modules/Operations.js");
 const opersUser = require("./modules/OperationsUser.js");
 const port = process.env.PORT || 3000;
+const connection = require("./connection");
 
 let dirsArray = [],
   filesArray = [],
@@ -469,10 +470,7 @@ function createData(albumName, callback) {
 server.listen(port, function () {
   // let finish = {address: "mongodb://192.168.55.169/playlists"}
   //   let finish = { address: "mongodb://192.168.0.107/playlists" };
-  let finish = {
-    address:
-      "mongodb+srv://Admin:qwerty123@mp3player.enb04.mongodb.net/playlists?retryWrites=true&w=majority",
-  };
+  let finish = connection.finish;
   createConnection(finish, function (data) {
     console.log(data);
   });
