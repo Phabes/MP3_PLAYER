@@ -128,10 +128,6 @@ img {
     align-items: center;
 }
 
-#songs>.singleSong>div, #songs>#mainPhrases>#playlistNameDiv {
-    width: 80%;
-}
-
 .playlistName {
     width: 80%;
 }

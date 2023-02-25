@@ -7,7 +7,6 @@
     "get-mp3-duration": "^1.0.0",
     "mongodb": "^2.2.36"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

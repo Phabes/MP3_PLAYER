@@ -14,63 +14,63 @@ let dirsArray = [],
   playlists = [];
 let _db;
 
-const server = http.createServer(function (req, res) {
+const server = http.createServer(function(req, res) {
   switch (req.method) {
     case "GET":
       req.url = decodeURI(req.url);
       console.log(req.url);
       if (!req.url.includes(".")) {
-        fs.readFile("static/index.html", function (error, data) {
+        fs.readFile("static/index.html", function(error, data) {
           res.writeHead(200, { "Content-Type": "text/html" });
           res.write(data);
           res.end();
         });
       }
       if (req.url == "/login.html") {
-        fs.readFile("static/login.html", function (error, data) {
+        fs.readFile("static/login.html", function(error, data) {
           res.writeHead(200, { "Content-Type": "text/html" });
           res.write(data);
           res.end();
         });
       }
       if (req.url == "/register.html") {
-        fs.readFile("static/register.html", function (error, data) {
+        fs.readFile("static/register.html", function(error, data) {
           res.writeHead(200, { "Content-Type": "text/html" });
           res.write(data);
           res.end();
         });
       } else if (req.url.indexOf(".css") != -1) {
-        fs.readFile("static" + req.url, function (error, data) {
+        fs.readFile("static" + req.url, function(error, data) {
           res.writeHead(200, { "Content-Type": "text/css" });
           res.write(data);
           res.end();
         });
       } else if (req.url.indexOf(".ico") != -1) {
-        fs.readFile("static" + req.url, function (error, data) {
+        fs.readFile("static" + req.url, function(error, data) {
           res.writeHead(200, { "Content-Type": "image/x-icon" });
           res.write(data);
           res.end();
         });
       } else if (req.url.indexOf(".js") != -1) {
-        fs.readFile("static" + req.url, function (error, data) {
+        fs.readFile("static" + req.url, function(error, data) {
           res.writeHead(200, { "Content-Type": "application/javascript" });
           res.write(data);
           res.end();
         });
       } else if (req.url.indexOf(".png") != -1) {
-        fs.readFile("static" + req.url, function (error, data) {
+        fs.readFile("static" + req.url, function(error, data) {
           res.writeHead(200, { "Content-Type": "image/png" });
           res.write(data);
           res.end();
         });
       } else if (req.url.indexOf(".jpg") != -1) {
-        fs.readFile("static" + req.url, function (error, data) {
+        fs.readFile("static" + req.url, function(error, data) {
           res.writeHead(200, { "Content-Type": "image/jpeg" });
           res.write(data);
           res.end();
         });
       } else if (req.url.indexOf(".mp3") != -1) {
-        fs.readFile("static" + req.url, function (error, data) {
+        fs.readFile("static" + req.url, function(error, data) {
           res.writeHead(200, { "Content-Type": "audio/mpeg" });
           res.write(data);
           res.end();
@@ -86,30 +86,30 @@ const server = http.createServer(function (req, res) {
 function servResponse(req, res) {
   let allData = "";
 
-  req.on("data", function (data) {
+  req.on("data", function(data) {
     console.log("data: " + data);
     allData += data;
   });
 
-  req.on("end", function (data) {
+  req.on("end", function(data) {
     let finish = qs.parse(allData);
     console.log(finish.action);
     switch (finish.action) {
       case "CREATE_CONNECTION":
-        createConnection(finish, function (data) {
+        createConnection(finish, function(data) {
           res.end(JSON.stringify(data, null, 5));
         });
         break;
       case "LOAD_ALBUM":
-        createData(finish.albumName, function (data) {
+        createData(finish.albumName, function(data) {
           res.end(JSON.stringify(data, null, 5));
         });
         break;
       case "SHOW_PLAYLISTS":
-        opers.showPlaylists(_db, finish.databaseName, function (data) {
+        opers.showPlaylists(_db, finish.databaseName, function(data) {
           let obj = { actionBack: data.actionBack };
           if (obj.actionBack == "LOADED")
-            obj.playlists = data.playlists.map(function (playlist) {
+            obj.playlists = data.playlists.map(function(playlist) {
               return playlist.name;
             });
           res.end(JSON.stringify(obj, null, 5));
@@ -120,10 +120,10 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.login,
-          function (data) {
+          function(data) {
             let obj = { actionBack: data.actionBack };
             if (obj.actionBack == "LOADED")
-              obj.playlists = data.userData.playlists.map(function (playlist) {
+              obj.playlists = data.userData.playlists.map(function(playlist) {
                 return playlist.name;
               });
             res.end(JSON.stringify(obj, null, 5));
@@ -135,7 +135,7 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.playlistName,
-          function (data) {
+          function(data) {
             res.end(data);
           }
         );
@@ -145,7 +145,7 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.login,
-          function (data) {
+          function(data) {
             if (data.actionBack == "LOADED") {
               opersUser.createPlaylistUser(
                 ObjectID,
@@ -154,7 +154,7 @@ function servResponse(req, res) {
                 finish.login,
                 finish.playlistName,
                 data.userData,
-                function (data2) {
+                function(data2) {
                   res.end(data2);
                 }
               );
@@ -169,13 +169,13 @@ function servResponse(req, res) {
           finish.databaseName,
           finish.playlistName,
           songInfo,
-          function (data) {
+          function(data) {
             opers.findInPlaylist(
               _db,
               finish.databaseName,
               finish.playlistName,
               songInfo,
-              function (data2) {
+              function(data2) {
                 let obj = {
                   actionBack: data,
                   song: data2.song,
@@ -192,7 +192,7 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.login,
-          function (data) {
+          function(data) {
             if (data.actionBack == "LOADED") {
               opersUser.addToPlaylistUser(
                 ObjectID,
@@ -202,7 +202,7 @@ function servResponse(req, res) {
                 finish.playlistName,
                 data.userData,
                 songInfo,
-                function (data2) {
+                function(data2) {
                   res.end(data2);
                 }
               );
@@ -215,7 +215,7 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.playlistName,
-          function (data) {
+          function(data) {
             data.dirs = dirsArray;
             res.end(JSON.stringify(data, null, 5));
           }
@@ -227,7 +227,7 @@ function servResponse(req, res) {
           finish.databaseName,
           finish.login,
           finish.playlistName,
-          function (data) {
+          function(data) {
             data.dirs = dirsArray;
             res.end(JSON.stringify(data, null, 5));
           }
@@ -238,7 +238,7 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.playlistName,
-          function (data) {
+          function(data) {
             res.end(data);
           }
         );
@@ -248,7 +248,7 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.login,
-          function (data) {
+          function(data) {
             if (data.actionBack == "LOADED") {
               opersUser.deletePlaylistUser(
                 ObjectID,
@@ -257,7 +257,7 @@ function servResponse(req, res) {
                 finish.login,
                 finish.playlistName,
                 data.userData,
-                function (data2) {
+                function(data2) {
                   res.end(data2);
                 }
               );
@@ -273,7 +273,7 @@ function servResponse(req, res) {
           finish.databaseName,
           finish.playlistName,
           songInfo._id,
-          function (data) {
+          function(data) {
             res.end(data);
           }
         );
@@ -283,7 +283,7 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.login,
-          function (data) {
+          function(data) {
             if (data.actionBack == "LOADED") {
               opersUser.deleteFromPlaylistUser(
                 ObjectID,
@@ -293,7 +293,7 @@ function servResponse(req, res) {
                 finish.playlistName,
                 finish.songIndex,
                 data.userData,
-                function (data) {
+                function(data) {
                   res.end(data);
                 }
               );
@@ -306,27 +306,27 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.login,
-          function (data) {
+          function(data) {
             if (data == "NOT_EXIST") {
               opersUser.createUser(
                 _db,
                 finish.databaseName,
                 finish.login,
-                function (data2) {
+                function(data2) {
                   if (data2 == "CREATED") {
                     opersUser.insertUserFirstData(
                       _db,
                       finish.databaseName,
                       finish.login,
                       finish.password,
-                      function (data3) {
+                      function(data3) {
                         if (data3 == "CREATED") res.end(data3);
                         else {
                           opersUser.deleteUser(
                             _db,
                             finish.databaseName,
                             finish.login,
-                            function (data4) {
+                            function(data4) {
                               res.end(data4);
                             }
                           );
@@ -341,21 +341,21 @@ function servResponse(req, res) {
                 _db,
                 finish.databaseName,
                 finish.login,
-                function (data2) {
+                function(data2) {
                   if (data2 == "EMPTY") {
                     opersUser.insertUserFirstData(
                       _db,
                       finish.databaseName,
                       finish.login,
                       finish.password,
-                      function (data3) {
+                      function(data3) {
                         if (data3 == "CREATED") res.end(data3);
                         else {
                           opersUser.deleteUser(
                             _db,
                             finish.databaseName,
                             finish.login,
-                            function (data4) {
+                            function(data4) {
                               res.end(data4);
                             }
                           );
@@ -374,19 +374,19 @@ function servResponse(req, res) {
           _db,
           finish.databaseName,
           finish.login,
-          function (data) {
+          function(data) {
             if (data == "EXIST") {
               opersUser.checkIfEmptyUser(
                 _db,
                 finish.databaseName,
                 finish.login,
-                function (data2) {
+                function(data2) {
                   if (data2 == "EMPTY") {
                     opersUser.deleteUser(
                       _db,
                       finish.databaseName,
                       finish.login,
-                      function (data3) {
+                      function(data3) {
                         res.end(data3);
                       }
                     );
@@ -395,7 +395,7 @@ function servResponse(req, res) {
                       _db,
                       finish.databaseName,
                       finish.login,
-                      function (data3) {
+                      function(data3) {
                         if (data3.actionBack == "LOADED") {
                           if (data3.userData.password == finish.password)
                             res.end("LOGGED");
@@ -418,7 +418,7 @@ function createConnection(finish, callback) {
   mongoClient.connect(
     finish.address,
     { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, db) {
+    function(err, db) {
       if (err) {
         console.log(err);
         callback("NOT_CONNECTED");
@@ -432,14 +432,14 @@ function createConnection(finish, callback) {
 
 function createData(albumName, callback) {
   (dirsArray = []), (filesArray = []);
-  fs.readdir("static/mp3", function (err, directories) {
+  fs.readdir("static/mp3", function(err, directories) {
     if (err) return console.log(err);
     directories.forEach((dirName) => {
       dirsArray.push(dirName);
     });
-    fs.readdir("static/mp3/" + albumName, function (err, files) {
+    fs.readdir("static/mp3/" + albumName, function(err, files) {
       if (err) return console.log(err);
-      files.forEach(function (songName) {
+      files.forEach(function(songName) {
         let stats = fs.statSync("static/mp3/" + albumName + "/" + songName);
         let songSize = (stats.size / (1024 * 1024)).toFixed(2) + " MB";
         let buffer = fs.readFileSync(
@@ -467,11 +467,11 @@ function createData(albumName, callback) {
   });
 }
 
-server.listen(port, function () {
-  // let finish = {address: "mongodb://192.168.55.169/playlists"}
+server.listen(port, function() {
+  // let finish = { address: "mongodb://192.168.55.169/playlists" }
   //   let finish = { address: "mongodb://192.168.0.107/playlists" };
-  let finish = connection.finish;
-  createConnection(finish, function (data) {
+  let finish = connection;
+  createConnection(finish, function(data) {
     console.log(data);
   });
   console.log("serwer startuje na porcie " + port);
